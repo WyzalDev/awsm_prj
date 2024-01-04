@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -16,6 +17,10 @@ public class Character : MonoBehaviour
 
     private Rigidbody rigidbody;
 
+    private float scanUsingObjects = 1f;
+
+    private List<GameObject> objects;
+
     float myFloat;
 
     void Awake() {
@@ -24,8 +29,27 @@ public class Character : MonoBehaviour
         rigidbody = GetComponent<Rigidbody>();
     }
 
+    private List<GameObject> ScanObjects() {
+        List<Collider> colliders = new List<Collider>(Physics.OverlapSphere(transform.position, scanUsingObjects));
+        colliders.RemoveAll(item => !isHaveObjectsComponent(item));
+        List<GameObject> result = new List<GameObject>();
+        foreach(Collider collider in colliders){
+            result.Add(collider.gameObject);
+        }
+        return result;
+    }
+
+    private bool  isHaveObjectsComponent(Collider collider){
+        return collider.gameObject.GetComponent<Outline>() != null;
+
+    }
+
     private void OnInteract(InputAction.CallbackContext context)
     {
+        objects = ScanObjects();
+        if(objects.Count > 0){
+            Destroy(objects[0]);
+        }
         Debug.Log("Interact!");
     }
 
