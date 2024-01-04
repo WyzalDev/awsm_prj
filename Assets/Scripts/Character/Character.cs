@@ -12,10 +12,15 @@ public class Character : MonoBehaviour
     public InputActionAsset actions;
 
     public float speed = 10f;
+
     // private field to store move action reference
     private InputAction moveAction;
 
     private Rigidbody rigidbody;
+
+    public Stamina stamina;
+
+    public float staminaPerObject = 10f;
 
     // don't touch it
     private float scanUsingObjects = 1f;
@@ -40,7 +45,7 @@ public class Character : MonoBehaviour
         return result;
     }
 
-    private bool  isHaveObjectsComponent(Collider collider){
+    private bool  isHaveObjectsComponent(Collider collider) {
         return collider.gameObject.GetComponent<Outline>() != null;
 
     }
@@ -48,8 +53,9 @@ public class Character : MonoBehaviour
     private void OnInteract(InputAction.CallbackContext context)
     {
         objects = ScanObjects();
-        if(objects.Count > 0){
+        if(objects.Count > 0) {
             Destroy(objects[0]);
+            stamina.Refill(staminaPerObject);
         }
         Debug.Log("Interact!");
     }
