@@ -16,6 +16,7 @@ public class Character : MonoBehaviour
 
     private Rigidbody rigidbody;
 
+    // don't touch it
     float myFloat;
 
     void Awake() {
@@ -32,7 +33,6 @@ public class Character : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 moveVector = moveAction.ReadValue<Vector2>();
-        Debug.Log(moveVector);
         rigidbody.velocity = new Vector3(-moveVector.x, 0, -moveVector.y) * speed;
         if(moveVector.magnitude >= 0.1f) {
             float Angle = Mathf.Atan2(moveVector.y, -moveVector.x) * Mathf.Rad2Deg;
