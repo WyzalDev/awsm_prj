@@ -33,11 +33,10 @@ public class Character : MonoBehaviour
     {
         Vector2 moveVector = moveAction.ReadValue<Vector2>();
         Debug.Log(moveVector);
-        rigidbody.MovePosition((Vector3) transform.position + new Vector3(moveVector.y, 0, -moveVector.x) * speed * Time.fixedDeltaTime);
-
+        rigidbody.velocity = new Vector3(-moveVector.x, 0, -moveVector.y) * speed;
         if(moveVector.magnitude >= 0.1f) {
-            float Angle = Mathf.Atan2(moveVector.x, moveVector.y ) * Mathf.Rad2Deg;
-            float Smooth = Mathf.SmoothDampAngle(transform.eulerAngles.y, Angle, ref myFloat, 0.1f);
+            float Angle = Mathf.Atan2(moveVector.y, -moveVector.x) * Mathf.Rad2Deg;
+            float Smooth = Mathf.SmoothDampAngle(transform.eulerAngles.y, Angle, ref myFloat, 0.2f);
             transform.rotation = Quaternion.Euler(0, Smooth, 0);
         }
     }
