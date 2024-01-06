@@ -12,15 +12,13 @@ public class InteractObjectsContainer : MonoBehaviour
     private static GameObject gameEndObject;
 
     private static int i = 0;
-    void Awake() {
+
+    void Start() {
         allInteractObjects = new List<GameObject>();
         foreach (Transform item in transform)
         {
             allInteractObjects.Add(item.gameObject);
         }
-    }
-
-    void Start() {
         gameEndObject = gameEndObjectOnlySet;
     }
     void Update()
@@ -41,6 +39,10 @@ public class InteractObjectsContainer : MonoBehaviour
         }
     }
 
+    public static bool isEmpty() {
+        return !isNextExists();
+    }
+
     private static bool isNextExists() {
         return i < allInteractObjects.Count;
     }
@@ -51,5 +53,16 @@ public class InteractObjectsContainer : MonoBehaviour
         } else {
             return gameEndObject;
         }
+    }
+
+    public static void OnSceneChange() {
+        if(isNextExists()) {
+            Destroy(GetCurrentInteractObject().GetComponent<Outline>());
+            for(int j = i; i < allInteractObjects.Count; i++) {
+                Destroy(allInteractObjects[j]);
+            }
+        }
+        i = 0;
+        allInteractObjects.Clear();
     }
 }

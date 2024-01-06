@@ -28,6 +28,9 @@ public class Stamina : MonoBehaviour
         if(action.IsPressed()) {
             Spend(Time.deltaTime);
         }
+        if(staminaCurrent == 0) {
+            GameSceneManager.ChangeOnOutOfStaminaScene();
+        }
     }
 
     public void Spend(float deltaTime) {

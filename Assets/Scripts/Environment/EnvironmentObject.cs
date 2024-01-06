@@ -22,6 +22,10 @@ public class EnvironmentObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        SwitchEnvironmentState();
+    }
+
+    protected void SwitchEnvironmentState() {
         switch(EnvironmentState.getInstance()) {
             case EnvStateEnum.Overheating :
             case EnvStateEnum.TooHigh :
@@ -41,7 +45,6 @@ public class EnvironmentObject : MonoBehaviour
                 break;
             }
         }
-        
     }
 
     void SwitchToWinterModel() {

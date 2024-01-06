@@ -18,9 +18,10 @@ public class EnvironmentState
 
     private static void ChangeState() {
         //нужно чтобы состояния были кратными какому-то множителю от 5 до 10
-        switch(Math.Floor(temperature/ multiplicity)) {
+        switch(Math.Floor(Math.Clamp(temperature/ multiplicity, -3, 3))) {
             case 3: {
                 stateInstance = EnvStateEnum.Overheating;
+                GameSceneManager.ChangeOnOverheatingScene();
                 break;
             }
             case 2: {
@@ -45,6 +46,7 @@ public class EnvironmentState
             }
             case -3: {
                 stateInstance = EnvStateEnum.Overcooling;
+                GameSceneManager.ChangeOnOverCoolingScene();
                 break;
             }
         }
