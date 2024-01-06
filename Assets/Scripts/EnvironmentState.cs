@@ -4,18 +4,18 @@ using UnityEngine;
 
 public class EnvironmentState
 {
-    public float temperature = 0f;
+    public static float temperature = 0f;
 
     public const int multiplicity = 10;
 
     private static EnvStateEnum stateInstance = EnvStateEnum.Normal;
 
-    public void ChangeTemperature(float changeAmount) {
+    public static void ChangeTemperature(float changeAmount) {
         temperature += changeAmount;
         ChangeState();
     }
 
-    public void ChangeState() {
+    private static void ChangeState() {
         //нужно чтобы состояния были кратными какому-то множителю от 5 до 10
         switch(temperature/ multiplicity) {
             case 3: {

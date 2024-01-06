@@ -12,13 +12,14 @@ public class Stamina : MonoBehaviour
 
     public float spendingRate = 1f;
 
-    public InputActionAsset actions;
+    private InputActionAsset actions;
 
     private InputAction action;
 
     
 
     public void Awake() {
+        actions = PlayerInputController.Actions;
         action = actions.FindActionMap("Player").FindAction("Movement");
     }
 

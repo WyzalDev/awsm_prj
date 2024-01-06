@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class Character : MonoBehaviour
 {
     // assign the actions asset to this field in the inspector:
-    public InputActionAsset actions;
+    private InputActionAsset actions;
 
     public float speed = 10f;
 
@@ -30,6 +30,7 @@ public class Character : MonoBehaviour
     float myFloat;
 
     void Awake() {
+        actions = PlayerInputController.Actions;
         moveAction = actions.FindActionMap("Player").FindAction("Movement");
         actions.FindActionMap("Player").FindAction("Interact").performed += OnInteract;
         rigidbody = GetComponent<Rigidbody>();
@@ -46,7 +47,7 @@ public class Character : MonoBehaviour
     }
 
     private bool  isHaveObjectsComponent(Collider collider) {
-        return collider.gameObject.GetComponent<Outline>() != null;
+        return collider.gameObject.GetComponent<InteractObject>() != null && collider.gameObject.GetComponent<Outline>() != null;
 
     }
 
@@ -54,6 +55,7 @@ public class Character : MonoBehaviour
     {
         objects = ScanObjects();
         if(objects.Count > 0) {
+            objects[0].GetComponent<InteractObject>().OnInteract();
             Destroy(objects[0]);
             stamina.Refill(staminaPerObject);
         }

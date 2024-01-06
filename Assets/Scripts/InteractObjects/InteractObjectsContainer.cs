@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class InteractObjectsAndNavigator : MonoBehaviour
+public class InteractObjectsContainer : MonoBehaviour
 {
-    public List<GameObject> allInteractObjects;
+    private static List<GameObject> allInteractObjects;
 
-    private int i = 0;
+    private static int i = 0;
     void Awake() {
         allInteractObjects = new List<GameObject>();
         foreach (Transform item in transform)
@@ -31,5 +31,13 @@ public class InteractObjectsAndNavigator : MonoBehaviour
                 i++;
             }
         }
+    }
+
+    public static bool isNextExists() {
+        return i < allInteractObjects.Count;
+    }
+
+    public static GameObject GetCurrentInteractObject() {
+        return allInteractObjects[i];
     }
 }
