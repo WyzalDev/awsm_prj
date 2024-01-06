@@ -7,6 +7,10 @@ public class InteractObjectsContainer : MonoBehaviour
 {
     private static List<GameObject> allInteractObjects;
 
+    public GameObject gameEndObjectOnlySet;
+
+    private static GameObject gameEndObject;
+
     private static int i = 0;
     void Awake() {
         allInteractObjects = new List<GameObject>();
@@ -14,6 +18,10 @@ public class InteractObjectsContainer : MonoBehaviour
         {
             allInteractObjects.Add(item.gameObject);
         }
+    }
+
+    void Start() {
+        gameEndObject = gameEndObjectOnlySet;
     }
     void Update()
     {
@@ -33,11 +41,15 @@ public class InteractObjectsContainer : MonoBehaviour
         }
     }
 
-    public static bool isNextExists() {
+    private static bool isNextExists() {
         return i < allInteractObjects.Count;
     }
 
     public static GameObject GetCurrentInteractObject() {
-        return allInteractObjects[i];
+        if(isNextExists()) {
+            return allInteractObjects[i];
+        } else {
+            return gameEndObject;
+        }
     }
 }
