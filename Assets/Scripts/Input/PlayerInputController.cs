@@ -15,6 +15,10 @@ public class PlayerInputController : MonoBehaviour
         Actions = actionsDontUseInClasses;
     }
 
+    void Start() {
+        actionsDontUseInClasses.FindActionMap("Player").Enable();
+    }
+
     public static void ToPlayerControls() {
         Actions.FindActionMap("UI").Disable();
         Actions.FindActionMap("Player").Enable();

@@ -30,10 +30,13 @@ public class Character : MonoBehaviour
     float myFloat;
 
     void Awake() {
+        rigidbody = GetComponent<Rigidbody>();
+    }
+
+    void Start() {
         actions = PlayerInputController.Actions;
         moveAction = actions.FindActionMap("Player").FindAction("Movement");
         actions.FindActionMap("Player").FindAction("Interact").performed += OnInteract;
-        rigidbody = GetComponent<Rigidbody>();
     }
 
     private List<GameObject> ScanObjects() {
@@ -73,13 +76,4 @@ public class Character : MonoBehaviour
         }
     }
 
-    void OnEnable()
-    {
-        actions.FindActionMap("Player").Enable();
-    }
-
-    void OnDisable()
-    {
-        actions.FindActionMap("Player").Disable();
-    }
 }

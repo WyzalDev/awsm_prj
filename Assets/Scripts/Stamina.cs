@@ -16,15 +16,12 @@ public class Stamina : MonoBehaviour
 
     private InputAction action;
 
-    
-
-    public void Awake() {
-        actions = PlayerInputController.Actions;
-        action = actions.FindActionMap("Player").FindAction("Movement");
-    }
 
     public void Start() {
         staminaCurrent = staminaAmount;
+        actions = PlayerInputController.Actions;
+        action = actions.FindActionMap("Player").FindAction("Movement");
+    
     }
 
     void Update() {

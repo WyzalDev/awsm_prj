@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CardContainer : MonoBehaviour
 {
@@ -12,7 +13,9 @@ public class CardContainer : MonoBehaviour
 
     public GameObject cardPrefabOnlySet;
 
-    private static Transform menu;
+    private static Transform containerTransform;
+
+    private static GameObject fade;
 
     public Transform menuOnlySet;
 
@@ -25,7 +28,11 @@ public class CardContainer : MonoBehaviour
         cardContainer = new List<GameObject>();
         thisClassTransform = transform;
         cardPrefab = cardPrefabOnlySet;
-        menu = menuOnlySet;
+    }
+
+    void Start() {
+        containerTransform = menuOnlySet.Find("CardsContainer");
+        fade = menuOnlySet.Find("Fade").gameObject;
     }
 
     private static void ChangeState() {
@@ -45,8 +52,9 @@ public class CardContainer : MonoBehaviour
         if(state == CardContainerState.ListEmpty) {
             PlayerInputController.ToUIControls();
         }
+        fade.SetActive(true);
         foreach (CardInfo item in cardsInfo) {
-            GameObject card = Instantiate(cardPrefab, menu);
+            GameObject card = Instantiate(cardPrefab, containerTransform);
             card.AddComponent<Card>().Init(item);
             cardContainer.Add(card);
         }
@@ -60,6 +68,7 @@ public class CardContainer : MonoBehaviour
         cardContainer.Clear();
         ChangeState();
         PlayerInputController.ToPlayerControls();
+        fade.SetActive(false);
     }
 
 }
