@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,7 +18,7 @@ public class EnvironmentState
 
     private static void ChangeState() {
         //нужно чтобы состояния были кратными какому-то множителю от 5 до 10
-        switch(temperature/ multiplicity) {
+        switch(Math.Floor(temperature/ multiplicity)) {
             case 3: {
                 stateInstance = EnvStateEnum.Overheating;
                 break;
