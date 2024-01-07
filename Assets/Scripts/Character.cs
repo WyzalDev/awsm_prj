@@ -29,14 +29,18 @@ public class Character : MonoBehaviour
 
     private Animator animator;
 
+    private bool firstStart;
+
     // don't touch it
     float myFloat;
 
     void Awake() {
         rigidbody = GetComponent<Rigidbody>();
+        firstStart = true;
     }
 
     void Start() {
+        firstStart = false;
         animator = transform.GetChild(0).GetComponent<Animator>();
         actions = PlayerInputController.Actions;
         moveAction = actions.FindActionMap("Player").FindAction("Movement");
@@ -60,7 +64,6 @@ public class Character : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
-        
         objects = ScanObjects();
         if(objects.Count > 0) {
             animator.SetTrigger("StartInteract");
@@ -82,6 +85,16 @@ public class Character : MonoBehaviour
             float Smooth = Mathf.SmoothDampAngle(transform.eulerAngles.y, Angle, ref myFloat, 0.2f);
             transform.rotation = Quaternion.Euler(0, Smooth, 0);
         }
+    }
+
+    private void OnEnable()
+    {
+        if(!firstStart)
+            actions.FindActionMap("Player").FindAction("Interact").performed += OnInteract;
+    }
+    private void OnDisable()
+    {
+        actions.FindActionMap("Player").FindAction("Interact").performed -= OnInteract;
     }
 
 }
