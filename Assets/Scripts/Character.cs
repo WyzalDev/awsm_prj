@@ -22,11 +22,14 @@ public class Character : MonoBehaviour
 
     public float staminaPerObject = 10f;
 
-    // don't touch it
-    private float scanUsingObjects = 1f;
+
+    public float scanDistance = 4f;
 
     private List<GameObject> objects;
 
+    private Animator animator;
+
+    // don't touch it
     float myFloat;
 
     void Awake() {
@@ -34,13 +37,14 @@ public class Character : MonoBehaviour
     }
 
     void Start() {
+        animator = transform.GetChild(0).GetComponent<Animator>();
         actions = PlayerInputController.Actions;
         moveAction = actions.FindActionMap("Player").FindAction("Movement");
         actions.FindActionMap("Player").FindAction("Interact").performed += OnInteract;
     }
 
     private List<GameObject> ScanObjects() {
-        List<Collider> colliders = new List<Collider>(Physics.OverlapSphere(transform.position, scanUsingObjects));
+        List<Collider> colliders = new List<Collider>(Physics.OverlapSphere(transform.position, scanDistance));
         colliders.RemoveAll(item => !isHaveObjectsComponent(item));
         List<GameObject> result = new List<GameObject>();
         foreach(Collider collider in colliders){
@@ -56,8 +60,10 @@ public class Character : MonoBehaviour
 
     private void OnInteract(InputAction.CallbackContext context)
     {
+        
         objects = ScanObjects();
         if(objects.Count > 0) {
+            animator.SetTrigger("StartInteract");
             objects[0].GetComponent<InteractObject>().OnInteract();
             Destroy(objects[0]);
             stamina.Refill(staminaPerObject);
@@ -68,7 +74,9 @@ public class Character : MonoBehaviour
     void FixedUpdate()
     {
         Vector2 moveVector = moveAction.ReadValue<Vector2>();
-        rigidbody.velocity = new Vector3(-moveVector.x, 0, -moveVector.y) * speed;
+        Vector3 velocity = new Vector3(-moveVector.x, 0, -moveVector.y) * speed;
+        rigidbody.velocity = velocity;
+        animator.SetBool("IsMoving", velocity.magnitude != 0);
         if(moveVector.magnitude >= 0.1f) {
             float Angle = Mathf.Atan2(moveVector.y, -moveVector.x) * Mathf.Rad2Deg;
             float Smooth = Mathf.SmoothDampAngle(transform.eulerAngles.y, Angle, ref myFloat, 0.2f);
