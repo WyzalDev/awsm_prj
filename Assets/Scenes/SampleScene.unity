@@ -2119,9 +2119,29 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1713261467087531466, guid: 083b6fd6403728745946563b5854e80f, type: 3}
+      propertyPath: pace
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713261467087531466, guid: 083b6fd6403728745946563b5854e80f, type: 3}
+      propertyPath: speed
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713261467087531466, guid: 083b6fd6403728745946563b5854e80f, type: 3}
       propertyPath: character
       value: 
       objectReference: {fileID: 92311333}
+    - target: {fileID: 1713261467087531466, guid: 083b6fd6403728745946563b5854e80f, type: 3}
+      propertyPath: safeDistance
+      value: 0.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713261467087531466, guid: 083b6fd6403728745946563b5854e80f, type: 3}
+      propertyPath: pursuingDistance
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 1713261467087531466, guid: 083b6fd6403728745946563b5854e80f, type: 3}
+      propertyPath: randomDirectionCooldown
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2124315479945249669, guid: 083b6fd6403728745946563b5854e80f, type: 3}
       propertyPath: m_Name
       value: Companion
@@ -2169,7 +2189,7 @@ PrefabInstance:
     - target: {fileID: 6029587051662602304, guid: 083b6fd6403728745946563b5854e80f, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 9100000, guid: 64935b85ac56d2e44a0d890b634cd87d, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

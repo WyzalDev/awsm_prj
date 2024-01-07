@@ -9,13 +9,15 @@ public class Companion : MonoBehaviour
 
     private Rigidbody rigidbody;
 
-    private CompanionState state;
+    public CompanionState state;
 
     private CompanionState lastIdleState = CompanionState.Idle;
 
     public float speed = 10f;
 
     public float pursuingDistance = 3f;
+
+    public float pace = 2.4f;
 
     public float safeDistance = 1f;
 
@@ -33,6 +35,8 @@ public class Companion : MonoBehaviour
 
     private float nextChangeInDistanceBehaviour;
 
+    private Animator animator;
+
     // don't touch it
     float myFloat;
 
@@ -41,6 +45,7 @@ public class Companion : MonoBehaviour
     }
 
     void Start() {
+        animator = transform.GetChild(0).GetComponent<Animator>();
         nextChangeInDistanceBehaviour = cooldownChangeInDistanceBehaviour;
         nextRadomDirectionTime = randomDirectionCooldown;
         randomDirection = new Vector2(Random.Range(-1,1), Random.Range(-1,1)).normalized;
@@ -72,7 +77,23 @@ public class Companion : MonoBehaviour
                 state = lastIdleState;
         }
         ExcuteBehaviour();
+    }
 
+    private void SetAnimatorBools(bool IsRunning, bool IsWalking) {
+        animator.SetBool("IsRunning", IsRunning);
+        animator.SetBool("IsWalking", IsWalking);
+    }
+
+    private void SetAnimatorRunOrWalk() {
+        if(rigidbody.velocity.magnitude > speed / pace) {
+            SetAnimatorBools(true, false);
+        } else {
+            SetAnimatorBools(false, true);
+        }
+    }
+
+    public void SetAnimatorIdle() {
+        SetAnimatorBools(false, false);
     }
 
     private void ChangeCharacterAndCircleDirection() {
@@ -94,14 +115,24 @@ public class Companion : MonoBehaviour
     private void ExcuteBehaviour() {
         switch(state) {
             case CompanionState.Pursuing : {
+                SetAnimatorRunOrWalk();
                 Move(characterDirection);
                 break;
             }
             case CompanionState.RunAround : {
+                if(randomDirection.magnitude == 0) {
+                    SetAnimatorIdle();
+                } else {
+                    SetAnimatorRunOrWalk();
+                }
                 Move(randomDirection);
                 break;
             }
             //CompanionState.Idle says that nothing should happen
+            case CompanionState.Idle : {
+                SetAnimatorIdle();
+                break;
+            }
         }
     }
 

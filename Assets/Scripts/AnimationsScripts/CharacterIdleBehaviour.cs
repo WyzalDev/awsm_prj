@@ -24,7 +24,7 @@ public class CharacterIdleBehaviour : StateMachineBehaviour
     {
        if(!isBored) {
             IdleTime += Time.deltaTime;
-            if(IdleTime > TimeUntilBored) {
+            if(IdleTime > TimeUntilBored && stateInfo.normalizedTime % 1 < 1) {
                 isBored = true;
                 int currentBoredAnimation = Random.Range(1, NumberOfBoredAnimations + 1);
 
