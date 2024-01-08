@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameEndObject : EnvironmentObject
@@ -8,11 +10,17 @@ public class GameEndObject : EnvironmentObject
 
     public float characterDistanceToEnd;
 
+    void Start()
+    {
+        winterAgent = this.transform.GetChild(0).GetComponent<EnvAnimationAgent>();
+        summerAgent = this.transform.GetChild(1).GetComponent<EnvAnimationAgent>();
+        firstChange = true;
+    }
     // Update is called once per frame
     void Update()
     {
         SwitchEnvironmentState();
-        if(IsCharacterNear() && InteractObjectsContainer.isEmpty()) {
+        if(!character.IsDestroyed() && IsCharacterNear() && InteractObjectsContainer.isEmpty()) {
             switch(EnvironmentState.getInstance() < 0) {
                 case true : {
                     GameSceneManager.ChangeOnWinterWinScene();

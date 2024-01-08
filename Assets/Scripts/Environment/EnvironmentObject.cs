@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class EnvironmentObject : MonoBehaviour
 {
-    private GameObject WinterModel;
-
-    private GameObject SummerModel;
 
     private bool isWinter;
 
-    private bool firstChange;
+    protected bool firstChange;
+
+    protected EnvAnimationAgent summerAgent;
+
+    protected EnvAnimationAgent winterAgent;
 
     void Start()
     {
-        WinterModel = transform.Find("Winter").gameObject;
-        SummerModel = transform.Find("Summer").gameObject;
+        winterAgent = transform.GetChild(0).GetComponent<EnvAnimationAgent>();
+        summerAgent = transform.GetChild(1).GetComponent<EnvAnimationAgent>();
         firstChange = true;
     }
 
@@ -47,15 +48,15 @@ public class EnvironmentObject : MonoBehaviour
         }
     }
 
-    void SwitchToWinterModel() {
+    protected void SwitchToWinterModel() {
         isWinter = true;
-        SummerModel.SetActive(false);
-        WinterModel.SetActive(true);
+        summerAgent.SetBool("IsSummer", false);
+        winterAgent.SetBool("IsWinter", true);
     }
 
-    void SwitchToSummerModel() {
+    protected void SwitchToSummerModel() {
         isWinter = false;
-        WinterModel.SetActive(false);
-        SummerModel.SetActive(true);
+        winterAgent.SetBool("IsWinter", false);
+        summerAgent.SetBool("IsSummer", true);
     }
 }

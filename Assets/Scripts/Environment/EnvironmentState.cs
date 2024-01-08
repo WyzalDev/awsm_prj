@@ -11,14 +11,19 @@ public class EnvironmentState
 
     private static EnvStateEnum stateInstance = EnvStateEnum.Normal;
 
+    public static EnvStateEnum lastState = EnvStateEnum.Normal;
+
+    public static bool isGame;
+
     public static void ChangeTemperature(float changeAmount) {
         temperature += changeAmount;
         ChangeState();
     }
 
     private static void ChangeState() {
+        lastState = stateInstance;
         //нужно чтобы состояния были кратными какому-то множителю от 5 до 10
-        switch(Math.Floor(Math.Clamp(temperature/ multiplicity, -3, 3))) {
+        switch(SwitchCaseCondition()) {
             case 3: {
                 stateInstance = EnvStateEnum.Overheating;
                 GameSceneManager.ChangeOnOverheatingScene();
@@ -33,10 +38,16 @@ public class EnvironmentState
                 break;
             }
             case 0: {
+                if(SwitchCaseCondition() != (int) stateInstance) {
+                    AudioManager.instance.PlaySFX("ChangeWeather");
+                }
                 stateInstance = EnvStateEnum.Normal;
                 break;
             }
             case -1: {
+                if(SwitchCaseCondition() != (int) stateInstance) {
+                    AudioManager.instance.PlaySFX("ChangeWeather");
+                }
                 stateInstance = EnvStateEnum.Low;
                 break;
             }
@@ -50,6 +61,25 @@ public class EnvironmentState
                 break;
             }
         }
+    }
+
+    public static void StopGame() {
+        isGame = false;
+        dropToDefault();
+    }
+
+    private static void dropToDefault() {
+        temperature = 0;
+        stateInstance = EnvStateEnum.Normal;
+        lastState = EnvStateEnum.Normal;
+    }
+
+    public static void StartGame() {
+        isGame = true;
+    }
+
+    private static double SwitchCaseCondition() {
+        return Math.Floor(Math.Clamp(temperature/ multiplicity, -3, 3));
     }
 
     public static EnvStateEnum getInstance() {

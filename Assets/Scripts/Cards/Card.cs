@@ -10,13 +10,21 @@ public class Card : MonoBehaviour, IPointerDownHandler
 
     public String text;
 
+    public bool isLowChoise;
+
     public void Init(CardInfo info) {
         temperature = info.Temperature;
         text = info.Text;
+        isLowChoise = temperature < 0;
     }
 
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
+        if(isLowChoise) {
+            AudioManager.instance.PlaySFX("ChooseCardWithLow");
+        } else {
+            AudioManager.instance.PlaySFX("ChooseCardWithHigh");
+        }
         EnvironmentState.ChangeTemperature(temperature);
         CardContainer.ActionOnChoise();
     }

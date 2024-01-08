@@ -50,6 +50,8 @@ public class SimpleSceneManager : MonoBehaviour, IPointerDownHandler
 
     public void ChangeScene()
     {
+        AudioManager.instance.PlayMusicWithoutChange("SummerWalk");;
+        EnvironmentState.StartGame();
         SceneManager.LoadScene(sceneName);
     }
 
