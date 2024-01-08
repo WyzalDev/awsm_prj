@@ -13,7 +13,7 @@ public class EnvironmentState
 
     public static EnvStateEnum lastState = EnvStateEnum.Normal;
 
-    public static bool isGame;
+    public static bool isGame = true;
 
     public static void ChangeTemperature(float changeAmount) {
         temperature += changeAmount;
