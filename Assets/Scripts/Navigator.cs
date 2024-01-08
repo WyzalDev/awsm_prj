@@ -12,11 +12,15 @@ public class Navigator : MonoBehaviour
 
     private GameObject arrow;
 
+    public float rotation;
+
     public float disappearDistance;
+
+    public float rotationArrowSpeed;
 
     void Start()
     {
-        arrow = transform.GetChild(0).gameObject;
+        arrow = transform.GetChild(0).GetChild(0).gameObject;
     }
 
     void Update()
@@ -53,6 +57,8 @@ public class Navigator : MonoBehaviour
         //over time
         transform.rotation =
             Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * turn_speed);
+        float arrowRotation = Time.deltaTime * rotationArrowSpeed;
+        arrow.transform.Rotate(0, arrowRotation, 0);
     }
 
 }

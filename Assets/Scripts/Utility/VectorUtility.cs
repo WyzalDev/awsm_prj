@@ -30,6 +30,34 @@ public static class VectorUtility
         return resultVector;
     }
 
+    public static Vector2 Vector3ButOneAxisIsZero(Vector3 vector, Axis missingAxes) {
+        Vector3 resultVector = Vector2.zero;
+        switch(missingAxes) {
+            case Axis.x :
+            {
+                resultVector.x = 0;
+                resultVector.y = vector.y;
+                resultVector.z = vector.z;
+                break;
+            }
+            case Axis.y :
+            {
+                resultVector.x = vector.x;
+                resultVector.y = 0;
+                resultVector.z = vector.z;
+                break;
+            }
+            case Axis.z :
+            {
+                resultVector.x = vector.x;
+                resultVector.y = vector.y;
+                resultVector.z = 0;
+                break;
+            }
+        }
+        return resultVector;
+    }
+
 }
 
 public enum Axis{
