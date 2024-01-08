@@ -42,6 +42,7 @@ public class CardContainer : MonoBehaviour
                 break;
             }
             default : {
+                AudioManager.instance.PlaySFX("FlipCard");
                 state = CardContainerState.ListNotEmpty;
                 break;
             }
