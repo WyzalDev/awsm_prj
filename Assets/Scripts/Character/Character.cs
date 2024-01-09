@@ -80,6 +80,7 @@ public class Character : MonoBehaviour
 
     void FixedUpdate()
     {
+        rigidbody.AddForce(new Vector3(0,-1,0), ForceMode.VelocityChange);
         Vector2 moveVector = moveAction.ReadValue<Vector2>();
         Vector3 velocity = new Vector3(-moveVector.x, 0, -moveVector.y) * speed;
         rigidbody.velocity = velocity;

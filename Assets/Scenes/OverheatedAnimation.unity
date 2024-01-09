@@ -491,7 +491,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4796011761953198028, guid: 5a3c7e7e0149cc146a85b72b5e007873, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7021807204077750903, guid: 5a3c7e7e0149cc146a85b72b5e007873, type: 3}
       propertyPath: m_Pivot.x
@@ -574,8 +574,20 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7775454741217059228, guid: 5a3c7e7e0149cc146a85b72b5e007873, type: 3}
+      propertyPath: pauseTime
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775454741217059228, guid: 5a3c7e7e0149cc146a85b72b5e007873, type: 3}
       propertyPath: sceneName
       value: SampleScene
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775454741217059228, guid: 5a3c7e7e0149cc146a85b72b5e007873, type: 3}
+      propertyPath: CantSkipTime
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7775454741217059228, guid: 5a3c7e7e0149cc146a85b72b5e007873, type: 3}
+      propertyPath: SkipByMouseClick
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
