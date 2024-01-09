@@ -389,6 +389,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkipAnimationCanvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4796011761953198028, guid: 5a3c7e7e0149cc146a85b72b5e007873, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7021807204077750903, guid: 5a3c7e7e0149cc146a85b72b5e007873, type: 3}
       propertyPath: m_Pivot.x
       value: 0

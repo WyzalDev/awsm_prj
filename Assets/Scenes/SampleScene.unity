@@ -2635,7 +2635,7 @@ MonoBehaviour:
   - Temperature: 40
     UseText: UseText Test
     DescriptionText: DescriptionText test
-  - Temperature: -20
+  - Temperature: -40
     UseText: ladno
     DescriptionText: prohladno
   - Temperature: 29
