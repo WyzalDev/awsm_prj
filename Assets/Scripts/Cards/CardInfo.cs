@@ -10,5 +10,8 @@ public class CardInfo
     public float Temperature;
 
     [SerializeField]
-    public String Text;
+    public String UseText;
+
+    [SerializeField]
+    public String DescriptionText;
 }

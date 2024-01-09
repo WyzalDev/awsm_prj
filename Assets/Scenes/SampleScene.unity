@@ -2071,8 +2071,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardInfos:
-  - Temperature: 25
-    Text: 1
+  - Temperature: 15
+    UseText: "\u0418\u0434\u0438 \u043D\u0430\u0445\u0443\u0439"
+    DescriptionText: "\u042D\u0442\u0443 \u0442\u0443\u0434\u0430, \u0441\u0442\u0440\u0435\u043B\u043A\u0430
+      \u043F\u043E\u043A\u0430\u0437\u044B\u0432\u0430\u0435\u0442"
 --- !u!1 &700610306
 GameObject:
   m_ObjectHideFlags: 0
@@ -2459,7 +2461,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000065818493, y: 0.92387956, z: -0.38268343, w: -0.000000015889988}
+  m_LocalRotation: {x: -0.000000006584597, y: 0.92387956, z: -0.38268343, w: -0.000000015896624}
   m_LocalPosition: {x: 0, y: 6, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2630,14 +2632,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardInfos:
-  - Temperature: -40
-    Text: sfsfsfs
   - Temperature: 40
-    Text: sfsfsfs
+    UseText: UseText Test
+    DescriptionText: DescriptionText test
   - Temperature: -20
-    Text: sfsfsfs
+    UseText: ladno
+    DescriptionText: prohladno
   - Temperature: 29
-    Text: sfsfsfs
+    UseText: penis
+    DescriptionText: yep penis
 --- !u!1 &1108224070 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1448590762380359366, guid: e54b288d0ff432a478749e8a938bf6f5, type: 3}
@@ -3092,7 +3095,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1449435474}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0000000065818493, y: 0.92387956, z: -0.38268343, w: -0.000000015889988}
+  m_LocalRotation: {x: -0.000000006584597, y: 0.92387956, z: -0.38268343, w: -0.000000015896624}
   m_LocalPosition: {x: 0, y: 6, z: 8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
