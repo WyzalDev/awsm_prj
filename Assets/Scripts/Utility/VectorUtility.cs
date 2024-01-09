@@ -57,7 +57,13 @@ public static class VectorUtility
         }
         return resultVector;
     }
-
+    public static Vector3 Vector3Clamp(Vector3 vector, Vector3 min, Vector3 max){
+        Vector3 result = new Vector3();
+        result.x = Mathf.Clamp(vector.x, min.x, max.x);
+        result.y = Mathf.Clamp(vector.y, min.y, max.y);
+        result.z = Mathf.Clamp(vector.z, min.z, max.z);
+        return result;
+    }
 }
 
 public enum Axis{
