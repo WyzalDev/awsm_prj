@@ -26,15 +26,19 @@ public class Stamina : MonoBehaviour
 
     void Update() {
         if(action.IsPressed()) {
-            Spend(Time.deltaTime);
+            Spend();
         }
         if(staminaCurrent == 0) {
             GameSceneManager.ChangeOnOutOfStaminaScene();
         }
     }
 
-    public void Spend(float deltaTime) {
-        staminaCurrent = Mathf.Clamp(staminaCurrent - spendingRate * deltaTime, 0, staminaAmount);
+    public void Spend() {
+        staminaCurrent = Mathf.Clamp(staminaCurrent - spendingRate * Time.deltaTime, 0, staminaAmount);
+    }
+
+    public void Spend(float spended) {
+        staminaCurrent= Mathf.Clamp(staminaCurrent - spended, 0, staminaAmount);;
     }
 
     public void Refill(float amount) {
