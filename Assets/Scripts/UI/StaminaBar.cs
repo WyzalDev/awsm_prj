@@ -1,22 +1,20 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StaminaBar : MonoBehaviour
 {
-    private Slider staminaSlider;
+    [SerializeField]
+    private Stamina stamina;
 
-    public Stamina stamina;
+    private Slider staminaSlider;
 
     void Start() {
         staminaSlider = GetComponent<Slider>();
     }
 
     void Update() {
-        if(staminaSlider.value!= stamina.staminaCurrent) {
-            staminaSlider.value = stamina.staminaCurrent;
+        if(staminaSlider.value!= stamina.Current) {
+            staminaSlider.value = stamina.Current;
         }
     }
     

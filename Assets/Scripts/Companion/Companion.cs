@@ -1,52 +1,66 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Companion : MonoBehaviour
 {
+    [SerializeField]
     public Character character;
 
     private Rigidbody rigidbody;
 
-    public CompanionState state;
-
-    private CompanionState lastIdleState = CompanionState.Idle;
-
+    [Header("Settings")]
+    [SerializeField]
     public float speed = 10f;
 
+    [SerializeField]
     public float pursuingDistance = 3f;
 
+    [SerializeField]
     public float pace = 2.4f;
 
+    [SerializeField]
     public float safeDistance = 1f;
 
     private float distance = 0f;
 
-    private Vector2 characterDirection;
+    [Header("Cooldowns settings")]
 
-    private Vector2 randomDirection;
+    [SerializeField]
+    public float changeDistanceBehaviourCooldown = 2f;
 
-    public float cooldownChangeInDistanceBehaviour = 2f;
-
+    [SerializeField]
     public float randomDirectionCooldown = 1f;
 
     private float nextRadomDirectionTime;
 
-    private float nextChangeInDistanceBehaviour;
-
     private Animator animator;
 
+    [Header("Sound settings")]
+    [SerializeField]
     public AudioSource sfxSource;
 
+    [SerializeField]
     public float noisesCooldown;
+
+    [SerializeField]
+    public float noisesChance;
 
     private float noisesTime;
 
-    public float noisesChance;
+    //Directions
+    private Vector2 characterDirection;
+
+    private Vector2 randomDirection;
+
+    //Companion states
+    private CompanionState state;
+
+    private CompanionState lastIdleState = CompanionState.Idle;
+
+    private float nextChangeInDistanceBehaviour;
 
     // don't touch it
-    float myFloat;
+    private float myFloat;
 
     void Awake() {
         rigidbody = GetComponent<Rigidbody>();   
@@ -56,7 +70,7 @@ public class Companion : MonoBehaviour
     void Start() {
         noisesTime = noisesCooldown;
         animator = transform.GetChild(0).GetComponent<Animator>();
-        nextChangeInDistanceBehaviour = cooldownChangeInDistanceBehaviour;
+        nextChangeInDistanceBehaviour = changeDistanceBehaviourCooldown;
         nextRadomDirectionTime = randomDirectionCooldown;
         randomDirection = new Vector2(Random.Range(-1,1), Random.Range(-1,1)).normalized;
     }
@@ -87,7 +101,7 @@ public class Companion : MonoBehaviour
             VectorUtility.Vector3ToVector2WithoutOneAxis(transform.position, Axis.y),
             VectorUtility.Vector3ToVector2WithoutOneAxis(character.transform.position, Axis.y));
 
-        nextChangeInDistanceBehaviour = Mathf.Clamp(nextChangeInDistanceBehaviour - Time.fixedDeltaTime, 0, cooldownChangeInDistanceBehaviour);
+        nextChangeInDistanceBehaviour = Mathf.Clamp(nextChangeInDistanceBehaviour - Time.fixedDeltaTime, 0, changeDistanceBehaviourCooldown);
         nextRadomDirectionTime = Mathf.Clamp(nextRadomDirectionTime - Time.fixedDeltaTime, 0, randomDirectionCooldown);
 
         if (nextRadomDirectionTime == 0) {
@@ -100,7 +114,7 @@ public class Companion : MonoBehaviour
         } else {
             if(nextChangeInDistanceBehaviour == 0) {
                 ChangeLastIdleState();
-                nextChangeInDistanceBehaviour = cooldownChangeInDistanceBehaviour;
+                nextChangeInDistanceBehaviour = changeDistanceBehaviourCooldown;
             }
             if(distance <= pursuingDistance - safeDistance)
                 state = lastIdleState;

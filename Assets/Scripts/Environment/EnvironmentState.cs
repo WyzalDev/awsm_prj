@@ -1,15 +1,13 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
+//singleton
 public class EnvironmentState
 {
     public static float temperature = 0f;
 
     public const int multiplicity = 10;
 
-    private static EnvStateEnum stateInstance = EnvStateEnum.Normal;
+    private static EnvStateEnum instance = EnvStateEnum.Normal;
 
     public static EnvStateEnum lastState = EnvStateEnum.Normal;
 
@@ -21,42 +19,42 @@ public class EnvironmentState
     }
 
     private static void ChangeState() {
-        lastState = stateInstance;
+        lastState = instance;
         //нужно чтобы состояния были кратными какому-то множителю от 5 до 10
         switch(SwitchCaseCondition()) {
             case 3: {
-                stateInstance = EnvStateEnum.Overheating;
+                instance = EnvStateEnum.Overheating;
                 GameSceneManager.ChangeOnOverheatingScene();
                 break;
             }
             case 2: {
-                stateInstance = EnvStateEnum.TooHigh;
+                instance = EnvStateEnum.TooHigh;
                 break;
             }
             case 1: {
-                stateInstance = EnvStateEnum.High;
+                instance = EnvStateEnum.High;
                 break;
             }
             case 0: {
-                if(SwitchCaseCondition() != (int) stateInstance) {
-                    AudioManager.instance.PlaySFX("ChangeWeather");
+                if(SwitchCaseCondition() != (int) instance) {
+                    AudioManager.instance.PlaySfx("ChangeWeather");
                 }
-                stateInstance = EnvStateEnum.Normal;
+                instance = EnvStateEnum.Normal;
                 break;
             }
             case -1: {
-                if(SwitchCaseCondition() != (int) stateInstance) {
-                    AudioManager.instance.PlaySFX("ChangeWeather");
+                if(SwitchCaseCondition() != (int) instance) {
+                    AudioManager.instance.PlaySfx("ChangeWeather");
                 }
-                stateInstance = EnvStateEnum.Low;
+                instance = EnvStateEnum.Low;
                 break;
             }
             case -2: {
-                stateInstance = EnvStateEnum.TooLow;
+                instance = EnvStateEnum.TooLow;
                 break;
             }
             case -3: {
-                stateInstance = EnvStateEnum.Overcooling;
+                instance = EnvStateEnum.Overcooling;
                 GameSceneManager.ChangeOnOverCoolingScene();
                 break;
             }
@@ -70,7 +68,7 @@ public class EnvironmentState
 
     private static void dropToDefault() {
         temperature = 0;
-        stateInstance = EnvStateEnum.Normal;
+        instance = EnvStateEnum.Normal;
         lastState = EnvStateEnum.Normal;
     }
 
@@ -83,7 +81,7 @@ public class EnvironmentState
     }
 
     public static EnvStateEnum getInstance() {
-        return stateInstance;
+        return instance;
     }
 
 }

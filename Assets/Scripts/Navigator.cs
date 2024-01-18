@@ -1,22 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class Navigator : MonoBehaviour
 {
-
-    public float turn_speed = 50f;
-
+    [Header("Navigator settings")]
+    [SerializeField]
     public GameObject follows;
 
+    [Header("Navigation Arrow settings")]
+
+    [SerializeField]
+    public float disappearDistance = 5f;
+
+    [SerializeField]
+    public float turnSpeed = 50f;
+
+    [SerializeField]
+    public float rotationArrowSpeed = 40f;
+
     private GameObject arrow;
-
-    public float rotation;
-
-    public float disappearDistance;
-
-    public float rotationArrowSpeed;
 
     void Start()
     {
@@ -56,7 +58,7 @@ public class Navigator : MonoBehaviour
         _lookRotation.z = 0;
         //over time
         transform.rotation =
-            Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * turn_speed);
+            Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * turnSpeed);
         float arrowRotation = Time.deltaTime * rotationArrowSpeed;
         arrow.transform.Rotate(0, arrowRotation, 0);
     }

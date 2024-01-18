@@ -1,32 +1,26 @@
-using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CardContainer : MonoBehaviour
 {
-    //TODO private
-    public static List<GameObject> cardContainer;
+    private static List<GameObject> cardContainer;
 
     private static GameObject cardPrefab;
 
-    public GameObject cardPrefabOnlySet;
+    [SerializeField]
+    private GameObject cardPrefabOnlySet;
+
+    [SerializeField]
+    private Transform menuOnlySet;
 
     private static Transform containerTransform;
 
     private static GameObject fade;
 
-    public Transform menuOnlySet;
-
-    //TODO private
-    public static CardContainerState state;
-
-    private static Transform thisClassTransform;
+    private static CardContainerState state;
 
     void Awake() {
         cardContainer = new List<GameObject>();
-        thisClassTransform = transform;
         cardPrefab = cardPrefabOnlySet;
     }
 
@@ -42,7 +36,7 @@ public class CardContainer : MonoBehaviour
                 break;
             }
             default : {
-                AudioManager.instance.PlaySFX("FlipCard");
+                AudioManager.instance.PlaySfx("FlipCard");
                 state = CardContainerState.ListNotEmpty;
                 break;
             }

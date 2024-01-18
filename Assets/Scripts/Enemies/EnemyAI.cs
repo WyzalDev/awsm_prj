@@ -1,38 +1,53 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyAI : MonoBehaviour
 {
+    [SerializeField]
+    private Transform character;
+
+    [SerializeField]
+    private Stamina stamina;
+
+    [SerializeField]
+    private LayerMask groundMask, characterMask;
+
+    //States
+    [Header("Range settings")]
+    [SerializeField]
+    public float sightRange;
+
+    [SerializeField]
+    public float attackRange;
+
+    private bool characterInSightRange, characterInAttackRange;
+
+    [Header("Patroling settings")]
+    [SerializeField]
+    private Vector3 walkPoint;
+
+    [SerializeField]
+    private float walkPointRange;
+
+    private bool walkPointSet;
+
+    [Header("Attack settings")]
+    [SerializeField]
+    private float timeBetweenAttacks;
+
+    [SerializeField]
+    private float damage;
+
+    private bool alreadyAttacked;
+
+    //AI
     private NavMeshAgent meshAgent;
-
-    public Transform character;
-
-    public LayerMask groundMask, characterMask;
-
-    public Stamina stamina;
-
-    //Patroling
-    public Vector3 walkPoint;
-    bool walkPointSet;
-    public float walkPointRange;
-
-    //Attacking
-    public float timeBetweenAttacks;
-    public float damage;
-    bool alreadyAttacked;
 
     //Animator
     private Animator animator;
 
     private const string isMovingParam = "IsMooving";
     private const string attackTriggerParam = "Attack";
-
-
-    //States
-    public float sightRange, attackRange;
-    public bool characterInSightRange, characterInAttackRange;
 
     void Awake() {
         meshAgent = GetComponent<NavMeshAgent>();

@@ -1,10 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class CompanionIdleBehaviour : StateMachineBehaviour
 {
+    [Header("Settings")]
     [SerializeField]
     private int numberOfAnimations;
 

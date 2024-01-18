@@ -1,16 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
-using System;
 
 public class Stamina : MonoBehaviour
 {
-    public float staminaCurrent;
+    [Header("Stamina settings")]
+    [SerializeField]
+    private float amount = 100f;
 
-    public float staminaAmount = 100f;
+    [SerializeField]
+    private float spendingRate = 1f;
 
-    public float spendingRate = 1f;
+    private float current;
+
+    public float Current {
+        get {return current; }
+        private set {current = value;}
+    }
 
     private InputActionAsset actions;
 
@@ -18,7 +23,7 @@ public class Stamina : MonoBehaviour
 
 
     public void Start() {
-        staminaCurrent = staminaAmount;
+        current = amount;
         actions = PlayerInputController.Actions;
         action = actions.FindActionMap("Player").FindAction("Movement");
     
@@ -28,20 +33,20 @@ public class Stamina : MonoBehaviour
         if(action.IsPressed()) {
             Spend();
         }
-        if(staminaCurrent == 0) {
+        if(current == 0) {
             GameSceneManager.ChangeOnOutOfStaminaScene();
         }
     }
 
-    public void Spend() {
-        staminaCurrent = Mathf.Clamp(staminaCurrent - spendingRate * Time.deltaTime, 0, staminaAmount);
+    private void Spend() {
+        Spend(spendingRate * Time.deltaTime);
     }
 
     public void Spend(float spended) {
-        staminaCurrent= Mathf.Clamp(staminaCurrent - spended, 0, staminaAmount);;
+        current= Mathf.Clamp(current - spended, 0, amount);;
     }
 
     public void Refill(float amount) {
-        staminaCurrent = Mathf.Clamp(staminaCurrent + amount, 0, staminaAmount);
+        current = Mathf.Clamp(current + amount, 0, this.amount);
     }
 }

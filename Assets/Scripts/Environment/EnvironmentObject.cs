@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnvironmentObject : MonoBehaviour
@@ -20,7 +18,6 @@ public class EnvironmentObject : MonoBehaviour
         firstChange = true;
     }
 
-    // Update is called once per frame
     void Update()
     {
         SwitchEnvironmentState();

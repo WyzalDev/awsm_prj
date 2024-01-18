@@ -1,14 +1,14 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
 public class GameEndObject : EnvironmentObject
 {
-    public Character character;
+    [SerializeField]
+    private Character character;
 
-    public float characterDistanceToEnd;
+    [Header("Settings")]
+    [SerializeField]
+    private float characterDistanceToEnd;
 
     void Start()
     {

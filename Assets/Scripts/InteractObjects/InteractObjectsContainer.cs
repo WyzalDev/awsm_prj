@@ -1,13 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
+//needed to be a singleton
 public class InteractObjectsContainer : MonoBehaviour
 {
     private static List<GameObject> allInteractObjects;
 
-    public GameObject gameEndObjectOnlySet;
+    [SerializeField]
+    private GameObject gameEndObjectOnlySet;
 
     private static GameObject gameEndObject;
 

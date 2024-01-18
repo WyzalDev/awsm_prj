@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameSceneManager : MonoBehaviour
 {
-    public static string overheatingScene = "OverheatedAnimation";
+    private static string overheatingScene = "OverheatedAnimation";
 
-    public static string overCoolingScene = "OvercoolingAnimation";
+    private static string overCoolingScene = "OvercoolingAnimation";
 
-    public static string outOfStaminaScene = "OutOfStaminaAnimation";
+    private static string outOfStaminaScene = "OutOfStaminaAnimation";
 
-    public static string summerWinScene = "SummerWinAnimation";
+    private static string summerWinScene = "SummerWinAnimation";
 
-    public static string winterWinScene = "WinterWinAnimation";
+    private static string winterWinScene = "WinterWinAnimation";
 
     public static void ChangeOnOverheatingScene() {
         AudioManager.instance.PlayMusic("GameOver");

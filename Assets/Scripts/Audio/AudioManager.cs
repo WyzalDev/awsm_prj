@@ -7,12 +7,23 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
+    
+    [Header("Set Sounds")]
+    [SerializeField]
+    public Sound[] musicSounds;
 
-    public Sound[] musicSounds, sfxSounds;
+    [SerializeField]
+    public Sound[] sfxSounds;
 
-    public AudioSource musicSource, sfxSource;
+    [Header("Settings")]
+    [SerializeField]
+    private AudioSource musicSource;
 
-    public float musicChangeFade;
+    [SerializeField]
+    private AudioSource sfxSource;
+
+    [SerializeField]
+    private float musicChangeFade;
 
     private bool isInFade;
 
@@ -51,14 +62,14 @@ public class AudioManager : MonoBehaviour
                     case EnvStateEnum.TooHigh: {
                         if(EnvironmentState.lastState != EnvStateEnum.TooLow) {
                             setPlayNextMusic();
-                            nextMusic = Array.Find(musicSounds, x => x.name == "OverheatinNOvercooling");
+                            nextMusic = Array.Find(musicSounds, x => x.name == "OverheatingNOvercooling");
                         }
                         break;
                     }
                     case EnvStateEnum.TooLow : {
                         if(EnvironmentState.lastState != EnvStateEnum.TooHigh) {
                             setPlayNextMusic();
-                            nextMusic = Array.Find(musicSounds, x => x.name == "OverheatinNOvercooling");
+                            nextMusic = Array.Find(musicSounds, x => x.name == "OverheatingNOvercooling");
                         }
                         break;
                     }
@@ -145,7 +156,7 @@ public class AudioManager : MonoBehaviour
         currentMusic = nextMusic;
     }
 
-    public void PlaySFX(string name) {
+    public void PlaySfx(string name) {
         Sound s = Array.Find(sfxSounds, x => x.name == name);
         if(s == null) {
             Debug.Log("SoundNotFound");

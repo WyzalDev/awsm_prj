@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterFootStepsController : MonoBehaviour
@@ -13,9 +11,9 @@ public class CharacterFootStepsController : MonoBehaviour
     public void FootStep() {
         if(character.isMoving()) {
             if(EnvironmentState.getInstance() >= 0) {
-                AudioManager.instance.PlaySFX("FootStepSummer");
+                AudioManager.instance.PlaySfx("FootStepSummer");
             } else {
-                AudioManager.instance.PlaySFX("FootStepWinter");
+                AudioManager.instance.PlaySfx("FootStepWinter");
             }
         }
     }

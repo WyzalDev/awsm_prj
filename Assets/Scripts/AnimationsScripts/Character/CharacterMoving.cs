@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CharacterMoving : MonoBehaviour
 {
@@ -12,7 +9,9 @@ public class CharacterMoving : MonoBehaviour
 
     private float direction;
 
-    public float speed;
+    [Header("Settings")]
+    [SerializeField]
+    private float speed;
 
     void Start() {
         currentMove = MoveRight;
@@ -22,10 +21,9 @@ public class CharacterMoving : MonoBehaviour
 
     void Update()
     {
-
         if (currentMove == MoveLeft || currentMove == MoveRight) {
             direction *= -1;
-        transform.Rotate (0, 180, 0);
+            transform.Rotate (0, 180, 0);
         }
         currentMove = Mathf.Clamp(currentMove + Time.deltaTime * speed * direction, MoveLeft, MoveRight);
         transform.position = new Vector3(currentMove, 0, 0);

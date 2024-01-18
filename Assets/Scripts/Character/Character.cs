@@ -1,29 +1,32 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class Character : MonoBehaviour
 {
-    // assign the actions asset to this field in the inspector:
-    private InputActionAsset actions;
 
-    public float speed = 10f;
+    [Header("Settings")]
+    [SerializeField]
+    private float speed = 10f;
+
+    [SerializeField]
+    private float interactObjectScanDistance = 4f;
+
+    [Header("Stamina settings")]
+    [SerializeField]
+    private Stamina stamina;
+
+    [SerializeField]
+    private float staminaPerObject = 10f;
 
     // private field to store move action reference
     private InputAction moveAction;
 
+    // assign the actions asset to this field in the inspector:
+    private InputActionAsset actions;
+
     private Rigidbody rigidbody;
-
-    public Stamina stamina;
-
-    public float staminaPerObject = 10f;
-
-
-    public float scanDistance = 4f;
 
     private List<GameObject> objects;
 
@@ -32,7 +35,7 @@ public class Character : MonoBehaviour
     private bool firstStart;
 
     // don't touch it
-    float myFloat;
+    private float myFloat;
 
     void Awake() {
         rigidbody = GetComponent<Rigidbody>();
@@ -48,7 +51,7 @@ public class Character : MonoBehaviour
     }
 
     private List<GameObject> ScanObjects() {
-        List<Collider> colliders = new List<Collider>(Physics.OverlapSphere(transform.position, scanDistance));
+        List<Collider> colliders = new List<Collider>(Physics.OverlapSphere(transform.position, interactObjectScanDistance));
         colliders.RemoveAll(item => !isHaveObjectsComponent(item));
         List<GameObject> result = new List<GameObject>();
         foreach(Collider collider in colliders){
@@ -75,7 +78,6 @@ public class Character : MonoBehaviour
             Destroy(objects[0]);
             stamina.Refill(staminaPerObject);
         }
-        Debug.Log("Interact!");
     }
 
     void FixedUpdate()

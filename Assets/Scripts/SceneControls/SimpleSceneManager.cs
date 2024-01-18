@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
@@ -9,19 +6,25 @@ using UnityEngine.SceneManagement;
 [RequireComponent(typeof(Canvas))]
 public class SimpleSceneManager : MonoBehaviour, IPointerDownHandler
 {
-    public string sceneName = "Game";
+    [Header("Settings")]
+    [SerializeField]
+    private string sceneName = "Game";
 
-    public float pauseTime = 2f;
+    [SerializeField]
+    private float pauseTime = 2f;
 
-    public float CantSkipTime = 1.5f;
+    [SerializeField]
+    private float CantSkipTime = 1.5f;
 
-    private float leftTime;
+    [SerializeField]
+    private bool SkipByAnyKeyOnKeyboard = true;
+
+    [SerializeField]
+    private bool SkipByMouseClick = true;
 
     private GameObject skipText;
 
-    public bool SkipByAnyKeyOnKeyboard = true;
-
-    public bool SkipByMouseClick = true;
+    private float leftTime;
 
     void Start()
     {

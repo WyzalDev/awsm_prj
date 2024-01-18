@@ -1,23 +1,17 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class Card : MonoBehaviour, IPointerDownHandler
 {
-    public float temperature;
-
-    public String useText;
-
-    public String descriptionText;
+    private float temperature;
 
     private TMP_Text useTextTMP;
 
     
     private TMP_Text descriptionTextTMP;
-    public bool isLowChoise;
+    private bool isLowChoise;
 
     void Awake() {
         useTextTMP = transform.GetChild(0).GetChild(0).GetComponent<TMP_Text>();
@@ -26,8 +20,6 @@ public class Card : MonoBehaviour, IPointerDownHandler
 
     public void Init(CardInfo info) {
         temperature = info.Temperature;
-        useText = info.UseText;
-        descriptionText = info.DescriptionText;
         useTextTMP.text = info.UseText;
         descriptionTextTMP.text = info.DescriptionText;
         isLowChoise = temperature < 0;
@@ -36,9 +28,9 @@ public class Card : MonoBehaviour, IPointerDownHandler
     void IPointerDownHandler.OnPointerDown(PointerEventData eventData)
     {
         if(isLowChoise) {
-            AudioManager.instance.PlaySFX("ChooseCardWithLow");
+            AudioManager.instance.PlaySfx("ChooseCardWithLow");
         } else {
-            AudioManager.instance.PlaySFX("ChooseCardWithHigh");
+            AudioManager.instance.PlaySfx("ChooseCardWithHigh");
         }
         EnvironmentState.ChangeTemperature(temperature);
         CardContainer.ActionOnChoise();

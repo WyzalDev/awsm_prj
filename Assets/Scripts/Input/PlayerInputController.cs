@@ -1,28 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+//needed to be a singleton (some singleton behaviour presents by this class)
 public class PlayerInputController : MonoBehaviour
 {
     //don't change it in ANY CLASSES
-    public InputActionAsset actionsDontUseInClasses;
-
+    [SerializeField]
+    private InputActionAsset actions;
 
     public static InputActionAsset Actions;
 
     void Awake() {
         SceneManager.sceneLoaded += UpdateInputAction;
-        Actions = actionsDontUseInClasses;
+        Actions = actions;
     }
 
     void Start() {
-        actionsDontUseInClasses.FindActionMap("Player").Enable();
+        actions.FindActionMap("Player").Enable();
     }
 
     public void UpdateInputAction(Scene scene, LoadSceneMode mode) {
-        Actions = actionsDontUseInClasses;
+        Actions = actions;
     }
 
     public static void ToPlayerControls() {
@@ -30,7 +29,7 @@ public class PlayerInputController : MonoBehaviour
         Actions.FindActionMap("Player").Enable();
     }
 
-        public static void ToUIControls() {
+    public static void ToUIControls() {
         Actions.FindActionMap("Player").Disable();
         Actions.FindActionMap("UI").Enable();
     }

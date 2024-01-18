@@ -1,18 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CharacterIdleBehaviour : StateMachineBehaviour
 {
     [SerializeField]
-    private float TimeUntilBored;
+    private float timeUntilBored;
 
     [SerializeField]
-    private int NumberOfBoredAnimations;
+    private int numberOfBoredAnimations;
 
     private bool isBored;
 
-    private float IdleTime;
+    private float idleTime;
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -23,10 +21,10 @@ public class CharacterIdleBehaviour : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
        if(!isBored) {
-            IdleTime += Time.deltaTime;
-            if(IdleTime > TimeUntilBored && stateInfo.normalizedTime % 1 < 1) {
+            idleTime += Time.deltaTime;
+            if(idleTime > timeUntilBored && stateInfo.normalizedTime % 1 < 1) {
                 isBored = true;
-                int currentBoredAnimation = Random.Range(1, NumberOfBoredAnimations + 1);
+                int currentBoredAnimation = Random.Range(1, numberOfBoredAnimations + 1);
 
                 animator.SetFloat("BoredAnimation", currentBoredAnimation);
             }
@@ -37,8 +35,7 @@ public class CharacterIdleBehaviour : StateMachineBehaviour
 
     private void ResetIdle(Animator animator) {
         isBored = false;
-        IdleTime = 0;
-
+        idleTime = 0;
         animator.SetFloat("BoredAnimation", 0);
     }
 }

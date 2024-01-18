@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OutOfStaminaLogic : MonoBehaviour
 {
-    private Vector3 endPoint = new Vector3(0,3,0);
+    [SerializeField]
+    public Rigidbody parent;
 
     private Animator animator;
 
-    public float speed = 5f;
+    [Header("Settings")]
+    [SerializeField]
+    private float speed = 5f;
 
     private bool IsMoving = true;
-
-    [SerializeField]
-    public Rigidbody parent;
 
     void Start() {
         animator = GetComponent<Animator>();
